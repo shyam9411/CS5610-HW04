@@ -1,0 +1,30 @@
+Please fill in answers to the questions below:
+
+
+1. What's your name?
+Shyam Kumar
+
+
+2. What's the URL of the github repo with your work for this HW?
+https://github.com/shyam9411/CS5610-HW04.git
+
+
+3. What's the URL that you deployed to?
+memory1.neu-webapps.space
+
+
+4. Is your game functionality complete? If not, what's missing?
+Yes. Completed all of the requirement.
+
+
+5. Is your game properly deployed? If not, what went wrong?
+Yes. I have deployed it completely under the mentioned domain.
+
+
+And here's a list of tasks for grading comments. Just leave this here:
+ - Development
+ - Deployment
+ - Submission
+ - AA
+ - BB
+ - CC
