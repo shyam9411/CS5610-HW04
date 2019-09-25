@@ -10,22 +10,22 @@ class Starter extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			"1": false,
-			"2": false,
-			"3": false,
-			"4": false,
-			"5": false,
-			"6": false,
-			"7": false,
-			"8": false,
-			"9": false,
-			"10": false,
-			"11": false,
-			"12": false,
-			"13": false,
-			"14": false,
-			"15": false,
-			"16": false
+			"1": {"status": false, "color": "black"},
+			"2": {"status": false, "color": "black"},
+			"3": {"status": false, "color": "black"},
+			"4": {"status": false, "color": "black"},
+			"5": {"status": false, "color": "black"},
+			"6": {"status": false, "color": "black"},
+			"7": {"status": false, "color": "black"},
+			"8": {"status": false, "color": "black"},
+			"9": {"status": false, "color": "black"},
+			"10": {"status": false, "color": "black"},
+			"11": {"status": false, "color": "black"},
+			"12": {"status": false, "color": "black"},
+			"13": {"status": false, "color": "black"},
+			"14": {"status": false, "color": "black"},
+			"15": {"status": false, "color": "black"},
+			"16": {"status": false, "color": "black"}
 		};
 		this.handleClick = this.handleClick.bind(this);
 		this._handleTileMatches = this._handleTileMatches.bind(this);
@@ -57,11 +57,13 @@ class Starter extends React.Component {
 		this.prevClickId = "";
 		this.timerId = null;
 		this.clickCount = 0;
+		// Attribution: Defaulting the state as reset is to bring the object to default state. Reference link: https://stackoverflow.com/questions/34845650/clearing-state-es6-react
+		this.defaultState = {...this.state};
 	}
 
 	_handleTileMatches(tileNum) {
 		let tileState = true;
-		let matchedTileState = this.state[this.matchLookup[tileNum]]
+		let matchedTileState = this.state[this.matchLookup[tileNum]]["status"]
 		let handledTileMatch = false;
 		if (tileState && matchedTileState) {
 			this.tilesMatched[parseInt(tileNum) - 1] = true;
@@ -74,34 +76,44 @@ class Starter extends React.Component {
 
 	resetGame() {
 		for (let i = 1; i < 17; i++) {
-			this.tilesMatched["" + i] = false;
-			this.state["" + i] = false;
+			this.tilesMatched[i - 1] = false;
 		}
+
+		this.prevClickId = "";
+		clearTimeout(this.timerId);
+		this.timerId = null;
 		this.clickCount = 0;
-		this.setState(this.state);
+		this.setState(this.defaultState);
 	}
 
 	handleClick(tileId) {
-		if (this.timerId != null || this.tilesMatched[parseInt(tileId) - 1])
+		if (this.timerId != null || this.tilesMatched[parseInt(tileId) - 1] || this.prevClickId == tileId) {
 			return;
+		}
 
 		this.clickCount += 1;
 		let tileEle = document.getElementById(tileId);
 		let bFoundMatch = this._handleTileMatches(tileId);
 		if (this.prevClickId === "") {
 			this.prevClickId = tileId;
-			this.setState({[tileId]: !this.state[tileId], [this.previClickId]: bFoundMatch});
+			this.setState({[tileId]: {"status": !this.state[tileId]["status"], "color": "lightgray"}, [this.previClickId]: {"status": bFoundMatch}});
 		}
 		else {
 			let prev = this.prevClickId;
 			this.prevClickId = "";
 			let timerDelay = bFoundMatch ? 0 : 2000;
-			this.timerId = setTimeout(() => {this.setState({[prev]: bFoundMatch, [tileId]: bFoundMatch}); this.timerId = null;}, timerDelay);
+			let color = bFoundMatch ? "green" : "red";
+			this.setState({[tileId]: {"status": !this.state[tileId]["status"], "color": color}, [prev]: {"status": bFoundMatch, "color": color}});
+			if (!bFoundMatch) {
+				this.timerId = setTimeout(() => {
+					this.setState({[prev]: {"status": bFoundMatch, "color": "black"}, [tileId]: {"status": bFoundMatch, "color": "black"}}); 
+					this.timerId = null;
+				}, timerDelay);
+			}
 		}
 	}
 
 	render() {
-		let secondaryClassName = "hideTile";
 		let isComplete = true;
 		for (let i = 0; i < 16; i++)
 			isComplete &= this.tilesMatched[i];
@@ -111,22 +123,22 @@ class Starter extends React.Component {
 		let gameEle = 
 			<div className="tileContainer">
 				{titleEle}
-				<div className="tiles" id="1" onClick={() => this.handleClick("1")}>{this.state["1"] ? "A" : ""}</div>
-				<div className="tiles" id="2" onClick={() => this.handleClick("2")}>{this.state["2"] ? "B" : ""}</div>
-				<div className="tiles" id="3" onClick={() => this.handleClick("3")}>{this.state["3"] ? "C" : ""}</div>
-				<div className="tiles" id="4" onClick={() => this.handleClick("4")}>{this.state["4"] ? "D" : ""}</div>
-				<div className="tiles" id="5" onClick={() => this.handleClick("5")}>{this.state["5"] ? "E" : ""}</div>
-				<div className="tiles" id="6" onClick={() => this.handleClick("6")}>{this.state["6"] ? "F" : ""}</div>
-				<div className="tiles" id="7" onClick={() => this.handleClick("7")}>{this.state["7"] ? "G" : ""}</div>
-				<div className="tiles" id="8" onClick={() => this.handleClick("8")}>{this.state["8"] ? "H" : ""}</div>
-				<div className="tiles" id="9" onClick={() => this.handleClick("9")}>{this.state["9"] ? "A" : ""}</div>
-				<div className="tiles" id="10" onClick={() => this.handleClick("10")}>{this.state["10"] ? "B" : ""}</div>
-				<div className="tiles" id="11" onClick={() => this.handleClick("11")}>{this.state["11"] ? "C" : ""}</div>
-				<div className="tiles" id="12" onClick={() => this.handleClick("12")}>{this.state["12"] ? "D" : ""}</div>
-				<div className="tiles" id="13" onClick={() => this.handleClick("13")}>{this.state["13"] ? "E" : ""}</div>
-				<div className="tiles" id="14" onClick={() => this.handleClick("14")}>{this.state["14"] ? "F" : ""}</div>	
-				<div className="tiles" id="15" onClick={() => this.handleClick("15")}>{this.state["15"] ? "G" : ""}</div>
-				<div className="tiles" id="16" onClick={() => this.handleClick("16")}>{this.state["16"] ? "H" : ""}</div>
+				<div className={"tiles " + this.state["1"]["color"]} id="1" onClick={() => this.handleClick("1")}>{this.state["1"]["status"] ? "A" : ""}</div>
+				<div className={"tiles " + this.state["2"]["color"]} id="2" onClick={() => this.handleClick("2")}>{this.state["2"]["status"] ? "B" : ""}</div>
+				<div className={"tiles " + this.state["3"]["color"]} id="3" onClick={() => this.handleClick("3")}>{this.state["3"]["status"] ? "C" : ""}</div>
+				<div className={"tiles " + this.state["4"]["color"]} id="4" onClick={() => this.handleClick("4")}>{this.state["4"]["status"] ? "D" : ""}</div>
+				<div className={"tiles " + this.state["5"]["color"]} id="5" onClick={() => this.handleClick("5")}>{this.state["5"]["status"] ? "E" : ""}</div>
+				<div className={"tiles " + this.state["6"]["color"]} id="6" onClick={() => this.handleClick("6")}>{this.state["6"]["status"] ? "F" : ""}</div>
+				<div className={"tiles " + this.state["7"]["color"]} id="7" onClick={() => this.handleClick("7")}>{this.state["7"]["status"] ? "G" : ""}</div>
+				<div className={"tiles " + this.state["8"]["color"]} id="8" onClick={() => this.handleClick("8")}>{this.state["8"]["status"] ? "H" : ""}</div>
+				<div className={"tiles " + this.state["9"]["color"]} id="9" onClick={() => this.handleClick("9")}>{this.state["9"]["status"] ? "A" : ""}</div>
+				<div className={"tiles " + this.state["10"]["color"]} id="10" onClick={() => this.handleClick("10")}>{this.state["10"]["status"] ? "B" : ""}</div>
+				<div className={"tiles " + this.state["11"]["color"]} id="11" onClick={() => this.handleClick("11")}>{this.state["11"]["status"] ? "C" : ""}</div>
+				<div className={"tiles " + this.state["12"]["color"]} id="12" onClick={() => this.handleClick("12")}>{this.state["12"]["status"] ? "D" : ""}</div>
+				<div className={"tiles " + this.state["13"]["color"]} id="13" onClick={() => this.handleClick("13")}>{this.state["13"]["status"] ? "E" : ""}</div>
+				<div className={"tiles " + this.state["14"]["color"]} id="14" onClick={() => this.handleClick("14")}>{this.state["14"]["status"] ? "F" : ""}</div>	
+				<div className={"tiles " + this.state["15"]["color"]} id="15" onClick={() => this.handleClick("15")}>{this.state["15"]["status"] ? "G" : ""}</div>
+				<div className={"tiles " + this.state["16"]["color"]} id="16" onClick={() => this.handleClick("16")}>{this.state["16"]["status"] ? "H" : ""}</div>
 			{resetButton}
 			</div>;
 

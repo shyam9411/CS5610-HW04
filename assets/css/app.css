@@ -31,12 +31,27 @@
 	display: inline-block;
 	width: 45px;
 	height: 30px;
-	border: 1px solid black;
 	margin-top: 5px;
 	line-height: 30px;
 	margin-left: 5px;
 	text-align: center;
 	float: left;
+}
+
+.black {
+	border: 2px solid black;
+}
+
+.green {
+	border: 2px solid green;
+}
+
+.red {
+	border: 2px solid red;
+}
+
+.lightgray {
+	border: 2px solid lightgray;
 }
 
 .doneRoot {
