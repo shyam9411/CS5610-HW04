@@ -1,0 +1,54 @@
+/* This file is for your main application css. */
+
+@import "~milligram/dist/milligram";
+
+.titleContainer {
+	margin-left: -10px;
+	width: 250px;
+	font-weight: bold;
+}
+
+.tileContainer {
+	max-height: 400px;
+	max-width: 200px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.tileContainer .reset {
+	margin-top: 10px;
+	display: inline-block;
+	margin-left: 20px;
+}
+
+.doneRoot .reset {
+	margin-top: 10px;
+	display: block;
+	margin-left: 10px;
+}
+
+.tiles {
+	display: inline-block;
+	width: 45px;
+	height: 30px;
+	border: 1px solid black;
+	margin-top: 5px;
+	line-height: 30px;
+	margin-left: 5px;
+	text-align: center;
+	float: left;
+}
+
+.doneRoot {
+	margin-left: auto;
+	margin-right: auto;
+	width: 250px;
+}
+
+.doneText {
+	margin-left: 21px;
+}
+
+.score {
+	margin-left: 21px;
+}
