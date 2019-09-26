@@ -103,7 +103,7 @@ class Starter extends React.Component {
 			this.prevClickId = "";
 			let timerDelay = bFoundMatch ? 0 : 2000;
 			let color = bFoundMatch ? "green" : "red";
-			this.setState({[tileId]: {"status": !this.state[tileId]["status"], "color": color}, [prev]: {"status": bFoundMatch, "color": color}});
+			this.setState({[tileId]: {"status": !this.state[tileId]["status"], "color": color}, [prev]: {"status": this.state[prev]["status"], "color": color}});
 			if (!bFoundMatch) {
 				this.timerId = setTimeout(() => {
 					this.setState({[prev]: {"status": bFoundMatch, "color": "black"}, [tileId]: {"status": bFoundMatch, "color": "black"}}); 
