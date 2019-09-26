@@ -7,8 +7,8 @@ Deployment steps were followed from: http://ccs.neu.edu/home/ntuck/courses/2019/
 ```
 Edit the included practice.service file to make sure it's correct.
 Copy it to /etc/systemd/system
-Enable it with "sudo systemctl enable practice"
-Start the service with "sudo service practice start".
+Enable it with "sudo systemctl enable hw4"
+Start the service with "sudo service hw4 start".
 ```
 
 Once the following is done, the app would start to run automatically upon launching intended domain.
