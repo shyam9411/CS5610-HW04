@@ -117,7 +117,6 @@ class Starter extends React.Component {
 		}
 
 		this.state.clickCount += 1;
-		let tileEle = document.getElementById(tileId);
 		let bFoundMatch = this._handleTileMatches(tileId);
 		let tileObj = this.state.tileInfo.filter((obj) => obj.tileNo === tileId)[0];
 		let prevTileObj = this.state.tileInfo.filter((obj) => obj.tileNo === this.state.prevClickId)[0];
@@ -132,7 +131,7 @@ class Starter extends React.Component {
 		}
 		else {
 			let prev = this.state.prevClickId;
-			let timerDelay = bFoundMatch ? 0 : 2000;
+			let timerDelay = bFoundMatch ? 0 : 1000;
 			let color = bFoundMatch ? "green" : "red";
 			
 			// Change current tile object
