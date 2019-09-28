@@ -50,17 +50,16 @@ class Starter extends React.Component {
 			],
 			timerId: null,
 			clickCount: 0,
-			prevClickId: ""
+			prevClickId: "",
+			tilesMatched: []
 		};
 
 		this.handleClick = this.handleClick.bind(this);
 		this._handleTileMatches = this._handleTileMatches.bind(this);
 		this.resetGame = this.resetGame.bind(this);
 
-		this.tilesMatched = [];
-
 		for (let i = 0; i < 16; i++)
-			this.tilesMatched.push(false);
+			this.state.tilesMatched.push(false);
 
 		// Attribution: Shuffling of an array was referenced from the following site: https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 		this.unSortedState = this.state.tileInfo.sort(() => 0.5 - Math.random());
@@ -81,8 +80,8 @@ class Starter extends React.Component {
 		let matchedTileState = this.state.tileInfo[i].status;
 		let handledTileMatch = false;
 		if (tileState && matchedTileState) {
-			this.tilesMatched[parseInt(tileNum) - 1] = true;
-			this.tilesMatched[parseInt(matchLookup[tileNum]) - 1] = true;
+			this.state.tilesMatched[parseInt(tileNum) - 1] = true;
+			this.state.tilesMatched[parseInt(matchLookup[tileNum]) - 1] = true;
 			handledTileMatch = true;
 		}
 		
@@ -94,7 +93,7 @@ class Starter extends React.Component {
 	 */
 	resetGame() {
 		for (let i = 0; i < 16; i++) {
-			this.tilesMatched[i] = false;
+			this.state.tilesMatched[i] = false;
 			this.state.tileInfo[i].status = false;
 			this.state.tileInfo[i].color = "black";
 		}
@@ -112,7 +111,7 @@ class Starter extends React.Component {
 	 * @param tileId determines the id of the tile from which the event was triggered
 	 */
 	handleClick(tileId) {
-		if (this.state.timerId != null || this.tilesMatched[parseInt(tileId) - 1] || this.state.prevClickId == tileId) {
+		if (this.state.timerId != null || this.state.tilesMatched[parseInt(tileId) - 1] || this.state.prevClickId == tileId) {
 			return;
 		}
 
@@ -163,7 +162,7 @@ class Starter extends React.Component {
 	render() {
 		let isComplete = true;
 		for (let i = 0; i < 16; i++)
-			isComplete &= this.tilesMatched[i];
+			isComplete &= this.state.tilesMatched[i];
 
 		let resetButton = <button className="reset" onClick={this.resetGame}>Reset Game</button>;
 		let titleEle = <div className="titleContainer">Memory Game - Match the tiles</div>;
@@ -171,7 +170,7 @@ class Starter extends React.Component {
 		// Attribution: Combining multiple dom elements to be rendered as an array so that, it can be rendered accordingly. Link used for reference: https://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
 		let gameTiles = [];
                 for (let i = 0; i < 16; i++)
-                	gameTiles.push(<div className={"tiles " + this.unSortedState[i].color + (this.tilesMatched[parseInt(this.unSortedState[i].tileNo) - 1] ? " completed" : "")} id={this.unSortedState[i].tileNo} onClick={() => this.handleClick(this.unSortedState[i].tileNo)}>{this.unSortedState[i].status ? this.unSortedState[i].val : ""}</div>);
+                	gameTiles.push(<div className={"tiles " + this.unSortedState[i].color + (this.state.tilesMatched[parseInt(this.unSortedState[i].tileNo) - 1] ? " completed" : "")} id={this.unSortedState[i].tileNo} onClick={() => this.handleClick(this.unSortedState[i].tileNo)}>{this.unSortedState[i].status ? this.unSortedState[i].val : ""}</div>);
 
 		let gameEle = 
 			<div className="tileContainer">
