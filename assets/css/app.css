@@ -10,7 +10,7 @@
 
 .tileContainer {
 	max-height: 400px;
-	max-width: 200px;
+	max-width: 250px;
 	margin-right: auto;
 	margin-left: auto;
 }
@@ -29,13 +29,18 @@
 
 .tiles {
 	display: inline-block;
-	width: 45px;
-	height: 30px;
+	width: 50px;
+	height: 50px;
 	margin-top: 5px;
-	line-height: 30px;
+	line-height: 50px;
 	margin-left: 5px;
 	text-align: center;
 	float: left;
+}
+
+.completed {
+	background-color: green;
+	color: white;
 }
 
 .black {
@@ -43,7 +48,7 @@
 }
 
 .green {
-	border: 2px solid lightgreen;
+	border: 2px solid green;
 }
 
 .red {
@@ -65,5 +70,6 @@
 }
 
 .score {
+	font-size: 16;
 	margin-left: 21px;
 }

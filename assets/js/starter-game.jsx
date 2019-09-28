@@ -171,7 +171,7 @@ class Starter extends React.Component {
 		// Attribution: Combining multiple dom elements to be rendered as an array so that, it can be rendered accordingly. Link used for reference: https://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
 		let gameTiles = [];
                 for (let i = 0; i < 16; i++)
-                	gameTiles.push(<div className={"tiles " + this.unSortedState[i].color} id={this.unSortedState[i].tileNo} onClick={() => this.handleClick(this.unSortedState[i].tileNo)}>{this.unSortedState[i].status ? this.unSortedState[i].val : ""}</div>);
+                	gameTiles.push(<div className={"tiles " + this.unSortedState[i].color + (this.tilesMatched[parseInt(this.unSortedState[i].tileNo) - 1] ? " completed" : "")} id={this.unSortedState[i].tileNo} onClick={() => this.handleClick(this.unSortedState[i].tileNo)}>{this.unSortedState[i].status ? this.unSortedState[i].val : ""}</div>);
 
 		let gameEle = 
 			<div className="tileContainer">
