@@ -139,7 +139,7 @@ class Starter extends React.Component {
 			tileObj.color = color;
 
 			// Change prev object
-			prevTileObj.status = bFoundMatch;
+			prevTileObj.status = prevTileObj.status;
 			prevTileObj.color = color;
 			
 			this.setState({"tileInfo": this.state.tileInfo, "prevClickId": ""});
